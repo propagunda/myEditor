@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#Frame {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  .horizontalResizableFrame {
+    display: flex;
+    width: 150px;
+    height: 100vh;
+
+    #Dir {
+      flex: 1;
+      overflow-y: auto;
+      background-color: #5757dd;
+      scrollbar-width: thin;
+
+    }
+
+    .horizontalResizable {
+      width: 7px;
+      height: 100vh;
+      background-color: antiquewhite;
+      z-index: 10;
+
+      &:hover {
+        width: 10px;
+        cursor: ew-resize;
+      }
+    }
+  }
+
+  #main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .verticalResizableFrame {
+      display: flex;
+      width: 100%;
+      height: 80%;
+      flex-direction: column;
+
+      #Edit {
+        flex: 1;
+        background-color: red;
+      }
+
+      .verticalResizable {
+        width: 100%;
+        height: 10px;
+        background-color: #b5fffc;
+        z-index: 10;
+
+        &:hover {
+          height: 15px;
+          cursor: ns-resize;
+        }
+      }
+    }
+    #Mod {
+      flex: 1;
+      background-color: #9393ff;
+    }
+  }
+}
+
+
+

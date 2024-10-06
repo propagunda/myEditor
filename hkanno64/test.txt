@@ -1,0 +1,9 @@
+# numOriginalFrames: 39
+# duration: 1.266667
+# numAnnotationTracks: 97
+# numAnnotations: 5
+0.700000 preHitFrame
+0.000000 animmotion 0 0 0
+0.000000 animmotion 0 0 0
+0.000000 animmotion 0 0 0
+0.000000 animmotion 0 0 0

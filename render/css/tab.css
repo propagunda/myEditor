@@ -1,0 +1,83 @@
+.tabFrame {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.tabFrame .tabContainer {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  background-color: darkviolet;
+}
+.tabFrame .tabContainer ul {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  border: black solid 1px;
+  list-style: none;
+  user-select: none;
+}
+.tabFrame .tabContainer ul li {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  border: black solid 1px;
+  border-radius: 0 5px 0 0;
+  margin: 0;
+}
+.tabFrame .tabContainer ul li > span {
+  margin: 5px;
+}
+.tabFrame .tabContainer ul li > span input {
+  background-color: transparent;
+  width: 100%;
+}
+.tabFrame .tabContainer ul li .removeTab {
+  width: 1rem;
+  height: 1rem;
+  border: black solid 1px;
+  border-radius: 0.5rem;
+  margin: 5px;
+  background-image: url("../picture/x-lg.svg");
+  background-repeat: no-repeat;
+}
+.tabFrame .tabContainer ul li .removeTab:hover {
+  background-color: red;
+}
+.tabFrame .tabContainer #tabPush {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin: 10px;
+  background-image: url("../picture/plus-lg.svg");
+}
+.tabFrame .tabContent {
+  flex: 1;
+  display: flex;
+  background-color: #7a5932;
+}
+.tabFrame .tabContent > .edit_view {
+  display: none;
+}
+.tabFrame .tabContent > .edit_view > .editArea {
+  background-color: cadetblue;
+  width: 50%;
+  height: 100%;
+  margin: 3px;
+}
+.tabFrame .tabContent > .edit_view > .viewArea {
+  background-color: #47bdc1;
+  width: 50%;
+  height: 100%;
+  margin: 3px;
+}
+.tabFrame .tabContent > .edit_view.tabSelected {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+/*# sourceMappingURL=tab.css.map */
