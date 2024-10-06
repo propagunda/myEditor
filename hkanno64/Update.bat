@@ -1,1 +1,0 @@
-hkanno64 update -i anno.txt "%~1"

@@ -54,9 +54,9 @@ function buildPathTree(pathTree, parentElement) {
         const position = { x: event.x, y: event.y }; // 获取右键点击位置
         // 根据文件类型发送不同的请求
         if (fileType === "directory") {
-            ipcRenderer.send('openDirectory', position, fileInfo); // 发送请求打开目录
-        } else if (fileType === "txt-file") {
-            ipcRenderer.send('openFile', position, fileInfo); // 发送请求打开文件
+            ipcRenderer.send('openDirectory', position, fileInfo); //->contextMenu.js
+        } else {
+            ipcRenderer.send('openFile', position, fileInfo); //->contextMenu.js
         }
     };
 

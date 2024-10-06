@@ -61,7 +61,14 @@ export class Tab {
         }
 
         let li = document.createElement('li');
+
+        li.dataset.name = fileInfo.name;
+        li.dataset.type = fileInfo.type;
         li.dataset.path = fileInfo.path;
+        if (fileInfo.sourcePath){
+            li.dataset.sourcePath = fileInfo.sourcePath;
+        }
+
 
         let span = document.createElement('span');
         span.textContent = fileInfo.name;
@@ -81,7 +88,8 @@ export class Tab {
         editArea.classList.add(`editArea`);
         editArea.value = data;
         editArea.addEventListener(`input`, (event)=>{
-            ipcRenderer.send(`saveFile`, fileInfo, event.target.value);//-> ipc.js
+            let value = event.target.value;
+            ipcRenderer.send(`saveFile`, fileInfo, value);//-> ipc.js
         })
 
         let viewArea = document.createElement(`textarea`)
@@ -100,8 +108,21 @@ export class Tab {
     removeTab(event) {
         event.stopPropagation();
         let index = event.currentTarget.parentNode.index;
+        let fileInfo = {
+            name: this.lists[index].dataset.name,
+            type: this.lists[index].dataset.type,
+            path: this.lists[index].dataset.path,
+            sourcePath: this.lists[index].dataset.sourcePath ?? null
+        }
+
+        let value = this.edit_views[index].querySelector('.editArea').value;
+
         this.edit_views[index].remove();
         this.lists[index].remove();
+
+        ipcRenderer.send(`closeFile`, fileInfo, value);//-> ipc.js
+        //关闭标签页时保存
+
         if (this.lists[index]?.classList.contains("tabSelected")) {
             this.lists[index--]?.click();
         }
