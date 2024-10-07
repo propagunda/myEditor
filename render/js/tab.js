@@ -95,6 +95,7 @@ export class Tab {
 
         let editArea = document.createElement(`textarea`)
         editArea.classList.add(`editArea`);
+        editArea.setAttribute('spellcheck', false)
         editArea.value = data;
         editArea.addEventListener(`input`, (event)=>{
             let value = event.target.value;
@@ -104,6 +105,7 @@ export class Tab {
         let viewArea = document.createElement(`textarea`)
         viewArea.classList.add(`viewArea`);
         viewArea.value = data;
+        viewArea.setAttribute('spellcheck', false)
         viewArea.setAttribute('readonly', true)
 
         edit_view.insertAdjacentElement(`beforeend`, editArea);
