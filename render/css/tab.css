@@ -8,7 +8,7 @@
   display: flex;
   height: 40px;
   align-items: center;
-  background-color: darkviolet;
+  background-color: #a6bd70;
 }
 .tabFrame .tabContainer ul {
   display: flex;
@@ -24,7 +24,8 @@
   display: flex;
   height: 100%;
   align-items: center;
-  border: black solid 1px;
+  border: black solid 2px;
+  background-color: chartreuse;
   border-radius: 0 5px 0 0;
   margin: 0;
 }
@@ -47,6 +48,9 @@
 .tabFrame .tabContainer ul li .removeTab:hover {
   background-color: red;
 }
+.tabFrame .tabContainer ul li.tabSelected {
+  background-color: #229cb2;
+}
 .tabFrame .tabContainer #tabPush {
   display: block;
   width: 1rem;
@@ -64,13 +68,19 @@
 }
 .tabFrame .tabContent > .edit_view > .editArea {
   background-color: cadetblue;
-  width: 50%;
+  font-size: 18px;
+  overflow-x: auto;
+  white-space: pre;
+  width: 60%;
   height: 100%;
   margin: 3px;
 }
 .tabFrame .tabContent > .edit_view > .viewArea {
   background-color: #47bdc1;
-  width: 50%;
+  font-size: 1rem;
+  overflow-x: auto;
+  white-space: pre;
+  width: 40%;
   height: 100%;
   margin: 3px;
 }

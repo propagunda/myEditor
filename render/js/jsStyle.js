@@ -9,7 +9,7 @@ function dragForResize(element, target, direction) {
         if (direction === 'horizontal') {
             let mouseX = target_BoundingClientRect.width + event.movementX;
             let min = 50
-            let max = 200
+            let max = 500
             if (mouseX < min){
                 target.style.width = min + 'px'
             } else if (mouseX > max) {

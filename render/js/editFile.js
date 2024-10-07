@@ -8,10 +8,25 @@ ipcRenderer.on('txt-file', (event, fileInfo, data) => {
     console.log(processString(data))
 })
 
+//->contextMenu.js
 ipcRenderer.on('hkx-file', (event, fileInfo, data) => {
     tabFrameEdit.pushTab(fileInfo, data)
-    console.log(processString(data))
+    console.log('hkx-file')
 })
+
+//->ipc.js
+ipcRenderer.on('refreshEV', (event, fileInfo, data) => {
+    tabFrameEdit.pushTab(fileInfo, data)
+    console.log('refreshEV')
+})
+
+//->main.js
+ipcRenderer.on('closeAllTabs', () => {
+    console.log('closeAllTabs')
+    tabFrameEdit.removeAllTabs()
+    ipcRenderer.send('refreshDir_onclose')//->ipc.js
+})
+
 
 function processString(inputString) {
     // 正则表达式匹配 animmotion 数据

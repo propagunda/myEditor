@@ -13,7 +13,7 @@ const T_mainMenu = [
                             { name: 'All Files', extensions: ['*'] }
                         ]
                     }).then(result => {
-                        window.webContents.send('DirectoryPath', result.filePaths);
+                        window.webContents.send('DirectoryPath', result.filePaths);//->showDirectory.js
                     })
 
                 }
@@ -36,6 +36,13 @@ const T_mainMenu = [
     {
         label: "控制台",
         role:'toggleDevTools'
+
+    },
+    {
+        label: "刷新",
+        click(){
+            window.webContents.send('refreshDirectory');
+        }
 
     }
     ]

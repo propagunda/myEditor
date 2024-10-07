@@ -19,7 +19,6 @@ export class Tab {
 
     initialise() {
         this.updateNodes();
-
         for (let i = 0; i < this.lists.length; i++) {
             this.lists[i].index = i;
             this.lists[i].removeEventListener("click", this.toggleTab.bind(this));
@@ -31,6 +30,15 @@ export class Tab {
     }
 
     toggleTab(event) {
+        event.stopPropagation();
+        for (let li of this.lists) {
+            if (li.classList.contains("tabSelected")) {
+                li.classList.remove("tabSelected");
+            }
+        }
+
+        event.currentTarget.classList.add("tabSelected");
+
         const index = event.currentTarget.index;
         for (let edit_view of this.edit_views) {
             edit_view.classList.remove("tabSelected");
@@ -59,6 +67,7 @@ export class Tab {
                 }
             }
         }
+//检查标签对应文件是否重复
 
         let li = document.createElement('li');
 
@@ -100,31 +109,26 @@ export class Tab {
         edit_view.insertAdjacentElement(`beforeend`, editArea);
         edit_view.insertAdjacentElement(`beforeend`, viewArea);
         this.tabContent.insertAdjacentElement(`beforeend`, edit_view);
-        ipcRenderer.send(`watchFile`, fileInfo);//-> ipc.js
+        ipcRenderer.send(`watchFile`, fileInfo, true);//-> ipc.js
         this.initialise();
         li.click()
+        editArea.focus()
     }
 
     removeTab(event) {
         event.stopPropagation();
-        let index = event.currentTarget.parentNode.index;
-        let fileInfo = {
-            name: this.lists[index].dataset.name,
-            type: this.lists[index].dataset.type,
-            path: this.lists[index].dataset.path,
-            sourcePath: this.lists[index].dataset.sourcePath ?? null
+        let li = event.currentTarget.parentNode;
+        this.closeFile(li, 'closeFile');
+
+        // 处理标签页选中状态
+        if (li.classList.contains("tabSelected")) {
+            this.lists[li.index - 1]?.click();
         }
+    }
 
-        let value = this.edit_views[index].querySelector('.editArea').value;
-
-        this.edit_views[index].remove();
-        this.lists[index].remove();
-
-        ipcRenderer.send(`closeFile`, fileInfo, value);//-> ipc.js
-        //关闭标签页时保存
-
-        if (this.lists[index]?.classList.contains("tabSelected")) {
-            this.lists[index--]?.click();
+    removeAllTabs() {
+        for (let li of this.lists) {
+            this.closeFile(li, 'closeAllFiles');
         }
     }
 
@@ -159,6 +163,31 @@ export class Tab {
 
         // 让输入框具有焦点
         input.focus();
+    }
+
+
+    closeFile(li, channel) {
+        let index = li.index;
+        let fileInfo = {
+            name: this.lists[index].dataset.name,
+            type: this.lists[index].dataset.type,
+            path: this.lists[index].dataset.path,
+            sourcePath: this.lists[index].dataset.sourcePath ?? null
+        };
+
+        let value = this.edit_views[index].querySelector('.editArea').value;
+
+        // 移除视图和标签
+        this.edit_views[index].remove();
+        this.lists[index].remove();
+
+        // 发送 IPC 消息
+        ipcRenderer.send(channel, fileInfo, value);
+
+        // 仅在关闭单个文件时发送 watchFile
+        if (channel === 'closeFile') {
+            ipcRenderer.send('watchFile', fileInfo, false);
+        }
     }
 }
 

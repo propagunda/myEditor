@@ -6,9 +6,7 @@ ipcRenderer.on('DirectoryPath', async (event, result) => {
 });
 
 ipcRenderer.on('refreshDirectory', async (event, result)=>{
-
     await processDirectories(dirPaths)
-    console.log("已刷新")
 })
 
 async function processDirectories(dirPaths) {
